@@ -25,7 +25,7 @@ function startup() {
   var TOUCH = $('html').hasClass('touch');
   // Map generated in CfA Account
   var MAPBOX_MAP_ID = "codeforamerica.map-j35lxf9d";
-  var AKRON = {
+  var RALEIGH = {
     lat: 41.082020,
     lng: -81.518506
   };
@@ -568,10 +568,10 @@ function startup() {
         },
         options);
     } else {
-      // for now, just returns Akron
+      // for now, just returns RALEIGH
       // should use browser geolocation,
-      // and only return Akron if we're far from home base
-      currentUserLocation = AKRON;
+      // and only return RALEIGH if we're far from home base
+      currentUserLocation = RALEIGH;
       showGeoOverlay();
       handleGeoError("no geolocation", callback);
     }
@@ -580,20 +580,20 @@ function startup() {
 
   function handleGeoSuccess(position, callback) {
     currentUserLocation = new L.LatLng(position.coords.latitude, position.coords.longitude);
-    var distanceToAkron = currentUserLocation.distanceTo(AKRON) / 1000;
+    var distanceToRALEIGH = currentUserLocation.distanceTo(RALEIGH) / 1000;
     // if no map, set it up
     if (!map) {
       var startingMapLocation;
       var startingMapZoom;
-      // if we're close to Akron, start the map and the trailhead distances from 
-      // the current location, otherwise just use AKRON for both
-      if (distanceToAkron < LOCAL_LOCATION_THRESHOLD) {
+      // if we're close to RALEIGH, start the map and the trailhead distances from 
+      // the current location, otherwise just use RALEIGH for both
+      if (distanceToRALEIGH < LOCAL_LOCATION_THRESHOLD) {
         anchorLocation = currentUserLocation;
         startingMapLocation = currentUserLocation;
         startingMapZoom = 13;
       } else {
-        anchorLocation = AKRON;
-        startingMapLocation = AKRON;
+        anchorLocation = RALEIGH;
+        startingMapLocation = RALEIGH;
         startingMapZoom = 11;
       }
       map = createMap(startingMapLocation, startingMapZoom);
@@ -622,8 +622,8 @@ function startup() {
     console.log(error);
     if (!map) {
       console.log("making map anyway");
-      map = createMap(AKRON, 11);
-      currentUserLocation = AKRON;
+      map = createMap(RALEIGH, 11);
+      currentUserLocation = RALEIGH;
       if (error.code === 1) {
         showGeoOverlay();
       }
@@ -638,7 +638,7 @@ function startup() {
   }
 
   function showGeoOverlay() {
-    var noGeolocationOverlayHTML = "<span class='closeOverlay'>x</span><p>We weren't able to get your current location, so we'll give you trailhead distances from downtown Akron.";
+    var noGeolocationOverlayHTML = "<span class='closeOverlay'>x</span><p>We weren't able to get your current location, so we'll give you trailhead distances from downtown RALEIGH.";
     $(".overlay-panel").html(noGeolocationOverlayHTML);
     $(".overlay").show();
     $(".overlay-panel").click(function() {
